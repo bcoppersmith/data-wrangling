@@ -4,6 +4,8 @@ module BillboardParser
 
   	attr_reader :data
   	WIKI_DOMAIN = "https://en.wikipedia.org"
+	  PRODUCER_JOINERS = /(?:\n|, (?!Jr\.|Sr\.)| and )/
+    CITATIONS = /\[\d+\]$/
 
   	def initialize(data)
     	@data = data
@@ -43,7 +45,7 @@ module BillboardParser
     	value = tr.at_xpath("td").to_s
     	text  = Nokogiri::HTML(value).text
 
-    	text.split(/(?:\n|, (?!Jr\.|Sr\.)| and )/).map{ |folk| folk.strip unless folk.empty? }.compact
+    	text.split(PRODUCER_JOINERS).map{ |folk| folk.strip.gsub(CITATIONS,"") unless folk.empty? }.compact
   	end
 	end
 end
