@@ -35,7 +35,7 @@ module BillboardParser
       song_info.each do |tr|
         header = tr.at_xpath("th/span/a/text()").to_s
         if header.match(/\bproducers?\b/i)
-          return format_producers_text(tr) #Stop after it's found the right row
+          return format_producers_text(tr) #Stop after it has found the right row
         end
       end
       nil
