@@ -36,13 +36,14 @@ module BillboardParser
         	return format_producers_text(tr) #Stop after it's found the right row
       	end
     	end
+			nil
   	end
 
   	def format_producers_text(tr)
     	value = tr.at_xpath("td").to_s
     	text  = Nokogiri::HTML(value).text
 
-    	text.split(/(?:\n|, (?!Jr\.|Sr\.))/).map{ |folk| folk.strip unless folk.empty? }.compact
+    	text.split(/(?:\n|, (?!Jr\.|Sr\.)| and )/).map{ |folk| folk.strip unless folk.empty? }.compact
   	end
 	end
 end
