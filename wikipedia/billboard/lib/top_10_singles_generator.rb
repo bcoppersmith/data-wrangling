@@ -1,11 +1,12 @@
 require 'json'
-require 'set'
 require 'nokogiri'
 require 'logger'
 require 'open-uri'
 require 'optparse'
 require_relative 'helpers/wiki_song_page'
 require_relative 'helpers/wiki_billboard_helper'
+include BillboardParser
+
 
 options = {}
 option_parser = OptionParser.new do |opts|
@@ -38,6 +39,7 @@ END_YEAR   = "2014"
 	all_songs = {year: year, songs: []}
   
   songs.each do |song_info|
+		@log.debug "enriching data for #{song_info[:link]}"
     song = WikiSongPage.new(song_info)
 		song.enrich
 	  all_songs[:songs] << song.data if song.valid?
@@ -45,4 +47,3 @@ END_YEAR   = "2014"
 
   puts JSON.generate(all_songs)
 end
-
