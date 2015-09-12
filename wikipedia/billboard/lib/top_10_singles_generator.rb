@@ -19,7 +19,7 @@ option_parser.parse!
 @log = Logger.new($stderr)
 @log.progname = "billboard_hot_100_parser"
 @log.level =   
-	if options[:debug]
+  if options[:debug]
     Logger::DEBUG
   else
     Logger::INFO
@@ -36,13 +36,13 @@ END_YEAR   = "2014"
   page  = Nokogiri::HTML(open(url))
   songs = WikiBillboardHelper.get_songs(page)
 
-	all_songs = {year: year, songs: []}
+  all_songs = {year: year, songs: []}
   
   songs.each do |song_info|
-		@log.debug "enriching data for #{song_info[:link]}"
+    @log.debug "enriching data for #{song_info[:link]}"
     song = WikiSongPage.new(song_info)
-		song.enrich
-	  all_songs[:songs] << song.data if song.valid?
+    song.enrich
+    all_songs[:songs] << song.data if song.valid?
   end
 
   puts JSON.generate(all_songs)
