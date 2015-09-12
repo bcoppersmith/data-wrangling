@@ -45,7 +45,7 @@ module BillboardParser
       value = tr.at_xpath("td").to_s
       text  = Nokogiri::HTML(value).text
 
-      text.split(PRODUCER_JOINERS).map{ |folk| folk.strip.gsub(CITATIONS,"") unless folk.empty? }.compact
+      text.split(PRODUCER_JOINERS).map{ |name| name.strip.gsub(CITATIONS,"") unless name.empty? }.compact
     end
   end
 end
