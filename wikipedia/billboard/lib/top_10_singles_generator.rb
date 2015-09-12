@@ -1,16 +1,16 @@
-require 'json'
-require 'nokogiri'
-require 'logger'
-require 'open-uri'
-require 'optparse'
-require_relative 'helpers/wiki_song_page'
-require_relative 'helpers/wiki_billboard_helper'
+require "json"
+require "nokogiri"
+require "logger"
+require "open-uri"
+require "optparse"
+require_relative "helpers/wiki_song_page"
+require_relative "helpers/wiki_billboard_helper"
 include BillboardParser
 
 
 options = {}
 option_parser = OptionParser.new do |opts|
-  opts.on('-d', '--debug', 'Log debug statements to stderr') do |debug|
+  opts.on("-d", "--debug", "Log debug statements to stderr") do |debug|
     options[:debug] = debug
   end
 end
