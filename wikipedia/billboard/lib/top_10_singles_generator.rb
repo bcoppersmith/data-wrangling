@@ -7,7 +7,6 @@ require_relative "helpers/wiki_song_page"
 require_relative "helpers/wiki_billboard_helper"
 include BillboardParser
 
-
 options = {}
 option_parser = OptionParser.new do |opts|
   opts.on("-d", "--debug", "Log debug statements to stderr") do |debug|
