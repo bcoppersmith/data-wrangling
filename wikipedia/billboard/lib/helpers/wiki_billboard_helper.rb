@@ -4,7 +4,7 @@ module BillboardParser
     extend self
 
     def get_songs(doc)
-      rows = doc.css("div.mw-content-ltr table.wikitable tr")
+      rows = doc.css("div.mw-content-ltr table.wikitable").first.css("tr")
       rows.map { |tr| parse_row(tr) }.compact
     end
 
