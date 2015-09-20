@@ -26,7 +26,7 @@ option_parser.parse!
 
 TOP_10_URL_PREFIX = "https://en.wikipedia.org/wiki/List_of_Billboard_Hot_100_top_10_singles_in_"
 START_YEAR = "1958"
-END_YEAR   = "2014"
+END_YEAR   = "2015"
 
 (START_YEAR..END_YEAR).each do |year|
   url = TOP_10_URL_PREFIX + year
