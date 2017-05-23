@@ -12,7 +12,7 @@ module BillboardParser
       offset = is_a_date?(tr.css("td[1]").text) ? 1 : 0
 
       song = {}
-      song[:link]   = tr.css("td[#{1+offset}] a").map { |link| link["href"] if link["href"].match(/^\/wiki/)}.first
+      song[:link] = tr.css("td[#{1+offset}] a").map { |link| link["href"] if link["href"].match(/^\/wiki/)}.first
       song[:artist] = tr.css("td[#{2+offset}]").text.gsub(/ featuring .*$/, "")
 
       song unless song.any? { |key, value| value.nil? }

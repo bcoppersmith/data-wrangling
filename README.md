@@ -1,2 +1,2 @@
 # mungers
-misc. collection of data munging scripts
+misc. collection of data wrangling, parsing, munging, scraping, collating, and smelling scripts
