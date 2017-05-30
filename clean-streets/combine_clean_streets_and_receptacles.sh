@@ -58,7 +58,7 @@ psql -U $USER -d $DATABASE << PG
       shape__length,
       wkb_geometry,
       nearby_receptacles(wkb_geometry),
-      (nearby_receptacles(wkb_geometry) / shape__length) AS cans_per_meter
+      (nearby_receptacles(wkb_geometry) / ST_Length(wkb_geometry, true)) AS cans_per_meter
     FROM $CLEAN_STREETS_TABLE);
 
   COPY (
@@ -68,7 +68,7 @@ psql -U $USER -d $DATABASE << PG
       avg(nearby_receptacles) AS avg_cans,
       avg(cans_per_meter) AS avg_ratio
     FROM $CANS_PER_ROAD_TABLE
-    GROUP BY cs_roundscore)
+    GROUP BY cs_roundscore ORDER BY cs_roundscore)
   TO '$PWD/roundscore_scores.csv' WITH CSV DELIMITER ',' HEADER;
 
   COPY (
@@ -78,6 +78,6 @@ psql -U $USER -d $DATABASE << PG
       avg(nearby_receptacles) AS avg_cans,
       avg(cans_per_meter) AS avg_ratio
     FROM $CANS_PER_ROAD_TABLE
-    GROUP BY llitterseg)
+    GROUP BY llitterseg ORDER BY llitterseg)
   TO '$PWD/litterseg_scores.csv' WITH CSV DELIMITER ',' HEADER;
 PG
