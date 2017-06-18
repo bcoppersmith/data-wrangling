@@ -5,6 +5,7 @@ DATABASE=city_data
 CLEAN_STREETS_TABLE=clean_streets
 RECEPTACLES_TABLE=receptacles
 CANS_PER_ROAD_TABLE=cans_per_road
+RADIUS=0.0002
 
 CLEAN_STREETS=http://geohub.lacity.org/datasets/674e3757160f4901a11cc56c2386929d_0.geojson
 RECEPTACLES=http://geohub.lacity.org/datasets/b998c1a838b4471cb486bb150b2684d9_0.geojson
@@ -38,7 +39,7 @@ Exporting data
 EOF
 psql -U $USER -d $DATABASE << PG
   CREATE FUNCTION nearby_receptacles(geometry) RETURNS bigint AS \$\$
-    SELECT count(*) FROM $RECEPTACLES_TABLE WHERE ST_DWithin($RECEPTACLES_TABLE.wkb_geometry, \$1, 0.0002);
+    SELECT count(*) FROM $RECEPTACLES_TABLE WHERE ST_DWithin($RECEPTACLES_TABLE.wkb_geometry, \$1, $RADIUS);
   \$\$ LANGUAGE SQL;
 
   CREATE TABLE $CANS_PER_ROAD_TABLE AS (
